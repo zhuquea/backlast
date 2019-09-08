@@ -1,0 +1,20 @@
+.menu_item_RE {
+  .el-submenu__icon-arrow{
+    right: 5px !important;
+  }
+}
+.dialog_form_item{
+  .el-form-item__content{
+    display: flex !important;
+    align-items: center !important;
+  }
+  .el-input{
+    height: 40px;
+  }
+  .el-input__inner{
+    height: 25px;
+  }
+  .el-button--mini{
+    margin-left: 5px;
+  }
+}
