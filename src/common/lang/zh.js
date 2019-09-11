@@ -13,6 +13,11 @@ module.exports = {
     asName4_2: "人员信息",
     asName4_3: "薪酬管理",
     asName5: "表单页",
-    asName5_1: "分步表单"
+    asName5_1: "分步表单",
+    headerHello1: "早上好",
+    headerHello2: "中午好",
+    headerHello3: "下午好",
+    headerHello4: "晚上好",
+    headerHello5: "太晚了，该睡觉了"
   }
 };

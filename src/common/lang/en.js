@@ -13,6 +13,11 @@ module.exports = {
     asName4_2: "Personnel Information",
     asName4_3: "Salary management",
     asName5: "form",
-    asName5_1: "Step-by-step form"
+    asName5_1: "Step-by-step form",
+    headerHello1: "Good morning",
+    headerHello2: "Good noon",
+    headerHello3: "Good afternoon",
+    headerHello4: "Good evening",
+    headerHello5: "It's too late. It's time to go to bed"
   }
 };

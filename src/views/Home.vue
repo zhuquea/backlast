@@ -386,15 +386,17 @@ export default {
     changeObj() {
       let count = 0;
       this.value1 = this.$moment(this.value1).format("YYYY-MM-DD");
-      this.dynamicArr.forEach(item => {
-        if (this.value1 === item.TimeStr) {
-          count++;
+      if (this.dynamicArr !== null) {
+        this.dynamicArr.forEach(item => {
+          if (this.value1 === item.TimeStr) {
+            count++;
+          }
+        });
+        if (count === 0) {
+          this.showNone = true;
+        } else {
+          this.showNone = false;
         }
-      });
-      if (count === 0) {
-        this.showNone = true;
-      } else {
-        this.showNone = false;
       }
     }
   },

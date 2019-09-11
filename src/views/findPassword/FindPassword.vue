@@ -92,6 +92,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
+          this.$message.error("请确认该账号是否已注册");
         });
     }
   },

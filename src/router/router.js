@@ -143,6 +143,14 @@ const router = new Router({
       meta: {
         title: "分布表单"
       }
+    },
+    {
+      path: "/checkForm",
+      name: "checkForm",
+      component: () => import("../views/checkForm/CheckForm")
+      // meta: {
+      //   title: "查看账单"
+      // }
     }
   ]
 });

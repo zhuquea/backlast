@@ -18,3 +18,15 @@
     margin-left: 5px;
   }
 }
+.mail_list_left_tree{
+  background-color: white;
+  .el-tree-node__content{
+    height: 40px !important;
+  }
+}
+.lastPlanned_input{
+  .el-input__inner{
+    text-align: center !important;
+    border: 0 !important;
+  }
+}

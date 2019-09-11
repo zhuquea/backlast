@@ -28,6 +28,11 @@
           />
           <img v-else :src="imageUrl" alt="" class="first_right_img" />
         </el-upload>
+        <span v-if="timeNow >= 6 && timeNow<12">{{sayTimeHello1[0].name}}</span>
+        <span v-else-if="timeNow>=12 && timeNow<14">{{sayTimeHello2[0].name}}</span>
+        <span v-else-if="timeNow>=14 && timeNow<18">{{sayTimeHello3[0].name}}</span>
+        <span v-else-if="timeNow>=18 && timeNow<24">{{sayTimeHello4[0].name}}</span>
+        <span v-else>{{sayTimeHello5[0].name}}</span>
         <el-dropdown @command="handleCommand">
           <div class="first_right_content">
             {{ headHello[0].name }}{{ username }}
@@ -109,7 +114,13 @@ export default {
         resource: "",
         desc: ""
       },
-      formLabelWidth: "120px"
+      formLabelWidth: "120px",
+      timeNow: '',
+      sayTimeHello1: [{ name: this.$t("message.headerHello1"), value: 0 }],//早上好
+      sayTimeHello2: [{ name: this.$t("message.headerHello2"), value: 0 }],
+      sayTimeHello3: [{ name: this.$t("message.headerHello3"), value: 0 }],
+      sayTimeHello4: [{ name: this.$t("message.headerHello4"), value: 0 }],
+      sayTimeHello5: [{ name: this.$t("message.headerHello5"), value: 0 }],
     };
   },
   methods: {
@@ -215,14 +226,29 @@ export default {
         this.$i18n.locale = "zh";
         Vue.set(this.headHello, 0, {name: this.$t("message.hello"), value: 0});
         Vue.set(this.headLeft, 0, {name: this.$t("message.headLeft"), value: 0});
+        Vue.set(this.sayTimeHello1, 0, {name: this.$t("message.headerHello1"), value: 0});
+        Vue.set(this.sayTimeHello2, 0, {name: this.$t("message.headerHello2"), value: 0});
+        Vue.set(this.sayTimeHello3, 0, {name: this.$t("message.headerHello3"), value: 0});
+        Vue.set(this.sayTimeHello4, 0, {name: this.$t("message.headerHello4"), value: 0});
+        Vue.set(this.sayTimeHello5, 0, {name: this.$t("message.headerHello5"), value: 0});
       } else if (command === "Eng") {
         this.$i18n.locale = "en";
         Vue.set(this.headHello, 0, {name: this.$t("message.hello"), value: 0});
         Vue.set(this.headLeft, 0, {name: this.$t("message.headLeft"), value: 0});
+        Vue.set(this.sayTimeHello1, 0, {name: this.$t("message.headerHello1"), value: 0});
+        Vue.set(this.sayTimeHello2, 0, {name: this.$t("message.headerHello2"), value: 0});
+        Vue.set(this.sayTimeHello3, 0, {name: this.$t("message.headerHello3"), value: 0});
+        Vue.set(this.sayTimeHello4, 0, {name: this.$t("message.headerHello4"), value: 0});
+        Vue.set(this.sayTimeHello5, 0, {name: this.$t("message.headerHello5"), value: 0});
       } else if (command === "fan") {
         this.$i18n.locale = "fan";
         Vue.set(this.headHello, 0, {name: this.$t("message.hello"), value: 0});
         Vue.set(this.headLeft, 0, {name: this.$t("message.headLeft"), value: 0});
+        Vue.set(this.sayTimeHello1, 0, {name: this.$t("message.headerHello1"), value: 0});
+        Vue.set(this.sayTimeHello2, 0, {name: this.$t("message.headerHello2"), value: 0});
+        Vue.set(this.sayTimeHello3, 0, {name: this.$t("message.headerHello3"), value: 0});
+        Vue.set(this.sayTimeHello4, 0, {name: this.$t("message.headerHello4"), value: 0});
+        Vue.set(this.sayTimeHello5, 0, {name: this.$t("message.headerHello5"), value: 0});
       }
     }
   },
@@ -238,6 +264,7 @@ export default {
       console.log(this.userPassword);
       this.idData = JSON.parse(localStorage.getItem("user")).user[0]._id;
     }
+    this.timeNow = this.$moment(new Date()).hour()
     // if (localStorage.getItem("imgUrl")) {
     //   this.imageUrl = localStorage.getItem("imgUrl");
     // }
