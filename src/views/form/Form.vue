@@ -65,63 +65,57 @@
       </div>
       <div class="form_second_step2" v-else-if="active === 1">
         <div class="second_step2_1">
-          <el-alert title="确认转账后，资金将打入对方账户，无法退回" type="warning" show-icon> </el-alert>
+          <el-alert
+            title="确认转账后，资金将打入对方账户，无法退回"
+            type="warning"
+            show-icon
+          >
+          </el-alert>
         </div>
-        <div class="second_step2_2">
-          付款账户：{{ruleForm.name1}}
-        </div>
-        <div class="second_step2_2">
-          收款账户：{{ruleForm.name2}}
-        </div>
-        <div class="second_step2_2">
-          付款人姓名：{{ruleForm.name3}}
-        </div>
-        <div class="second_step2_2">
-          付款金额：{{ruleForm.name4}}元
-        </div>
-        <hr class="second_step2_hr">
+        <div class="second_step2_2">付款账户：{{ ruleForm.name1 }}</div>
+        <div class="second_step2_2">收款账户：{{ ruleForm.name2 }}</div>
+        <div class="second_step2_2">付款人姓名：{{ ruleForm.name3 }}</div>
+        <div class="second_step2_2">付款金额：{{ ruleForm.name4 }}元</div>
+        <hr class="second_step2_hr" />
         <el-form
-                :model="ruleForm"
-                :rules="rules"
-                ref="ruleForm2"
-                label-width="100px"
-                class="demo-ruleFormPass">
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm2"
+          label-width="100px"
+          class="demo-ruleFormPass"
+        >
           <el-form-item label="支付密码" prop="pass">
             <el-input v-model="ruleForm.pass" type="password"></el-input>
           </el-form-item>
         </el-form>
       </div>
       <div class="form_second_step3" v-else-if="active === 2">
-          <div class="second_step3_1">
-            <i class="el-icon-success" style="font-size: 60px;color: yellowgreen"></i>
-            <div class="second_step3_1_2">
-              操作成功
-            </div>
-            <div class="second_step3_1_3">
-             预计2小时内到账
-            </div>
+        <div class="second_step3_1">
+          <i
+            class="el-icon-success"
+            style="font-size: 60px;color: yellowgreen"
+          ></i>
+          <div class="second_step3_1_2">
+            操作成功
           </div>
-        <div class="second_step2_2">
-          付款账户：{{ruleForm.name1}}
+          <div class="second_step3_1_3">
+            预计2小时内到账
+          </div>
         </div>
-        <div class="second_step2_2">
-          收款账户：{{ruleForm.name2}}
-        </div>
-        <div class="second_step2_2">
-          付款人姓名：{{ruleForm.name3}}
-        </div>
-        <div class="second_step2_2">
-          付款金额：{{ruleForm.name4}}元
-        </div>
+        <div class="second_step2_2">付款账户：{{ ruleForm.name1 }}</div>
+        <div class="second_step2_2">收款账户：{{ ruleForm.name2 }}</div>
+        <div class="second_step2_2">付款人姓名：{{ ruleForm.name3 }}</div>
+        <div class="second_step2_2">付款金额：{{ ruleForm.name4 }}元</div>
       </div>
     </div>
     <div class="form_third">
       <el-button
-              @click="next"
-              class="form_third_btn"
-              type="primary"
-              v-show="active === 0"
-      >下一步</el-button>
+        @click="next"
+        class="form_third_btn"
+        type="primary"
+        v-show="active === 0"
+        >下一步</el-button
+      >
       <div v-show="active === 1" class="form_third_step2_btn">
         <el-button @click="submitObj" type="success">提交</el-button>
         <el-button @click="returnObj" type="primary">上一步</el-button>
@@ -190,8 +184,8 @@ export default {
           { required: true, message: "请选择付款方式", trigger: "change" }
         ],
         pass: [
-          { required: true, message: '请输入支付密码', trigger: 'blur' },
-          { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+          { required: true, message: "请输入支付密码", trigger: "blur" },
+          { min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur" }
         ]
       }
     };
@@ -199,8 +193,13 @@ export default {
   methods: {
     //下一步按钮
     next() {
-      if (this.ruleForm.name1.length === 0 ||this.ruleForm.name2.length === 0||this.ruleForm.name3.length === 0||this.ruleForm.name4.length === 0) {
-        this.$message.warning("请按要求填写表单")
+      if (
+        this.ruleForm.name1.length === 0 ||
+        this.ruleForm.name2.length === 0 ||
+        this.ruleForm.name3.length === 0 ||
+        this.ruleForm.name4.length === 0
+      ) {
+        this.$message.warning("请按要求填写表单");
       } else {
         this.active = 1;
       }
@@ -209,7 +208,7 @@ export default {
     //提交按钮
     submitObj() {
       if (this.ruleForm.pass.length === 0) {
-        this.$message.warning("请填写密码")
+        this.$message.warning("请填写密码");
       } else {
         this.active = 2;
       }
@@ -219,17 +218,25 @@ export default {
       this.active = 0;
     },
     //再转一笔按钮
-    anotherRound(){
+    anotherRound() {
       this.active = 0;
-      this.ruleForm.name1 = ""
-      this.ruleForm.name2 = ""
-      this.ruleForm.name3 = ""
-      this.ruleForm.name4 = ""
+      this.ruleForm.name1 = "";
+      this.ruleForm.name2 = "";
+      this.ruleForm.name3 = "";
+      this.ruleForm.name4 = "";
     },
     //查看账单按钮
-    checkBill(){
-      const {href}=this.$router.resolve({path: "/checkForm",query:{name1:this.ruleForm.name1,name2:this.ruleForm.name2,name3:this.ruleForm.name3,name4:this.ruleForm.name4}})
-      window.open(href,'_blank')
+    checkBill() {
+      const { href } = this.$router.resolve({
+        path: "/checkForm",
+        query: {
+          name1: this.ruleForm.name1,
+          name2: this.ruleForm.name2,
+          name3: this.ruleForm.name3,
+          name4: this.ruleForm.name4
+        }
+      });
+      window.open(href, "_blank");
     }
   },
   mounted() {},
@@ -282,33 +289,33 @@ export default {
   line-height: 30px;
   margin: 20px auto;
 }
-.second_step2_2{
+.second_step2_2 {
   font-size: 15px;
 }
-.second_step2_hr{
+.second_step2_hr {
   width: 100%;
   margin-top: 20px;
 }
-.demo-ruleFormPass{
+.demo-ruleFormPass {
   margin-top: 10px;
 }
-.form_second_step3{
+.form_second_step3 {
   width: 50%;
   line-height: 30px;
   margin: 20px auto;
   text-align: center;
 }
-.second_step3_1{
+.second_step3_1 {
   text-align: center;
 }
-.second_step3_1_2{
+.second_step3_1_2 {
   font-size: 16px;
 }
-.second_step3_1_3{
+.second_step3_1_3 {
   font-size: 12px;
   color: #cac6c6;
 }
-.form_third{
+.form_third {
   background-color: white;
   padding: 10px;
 }
@@ -316,7 +323,8 @@ export default {
   margin-left: 45%;
   margin-top: 20px;
 }
-.form_third_step2_btn,.form_third_step3_btn{
+.form_third_step2_btn,
+.form_third_step3_btn {
   margin-top: 20px;
   display: flex;
   justify-content: space-around;

@@ -170,7 +170,8 @@ export default {
           phone: this.ruleForm1.name3
         })
         .then(res => {
-          if (res) {
+          if (res.code === 200) {
+            this.$message.success("验证码发送成功")
             console.log(res);
             this.loadStr = false
             this.BtnContent = '发送验证码'

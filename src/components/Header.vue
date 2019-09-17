@@ -286,7 +286,7 @@ export default {
 }
 .header_first_left {
   font-size: 25px;
-  color: aqua;
+  color: deepskyblue;
 }
 .header_first_right {
   display: flex;

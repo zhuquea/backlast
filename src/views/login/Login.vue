@@ -52,12 +52,14 @@
         </el-form>
       </div>
       <div class="login__last">
-        <el-button type="primary" style="margin-left: 90px" @click="lognow"
-          >立即登录</el-button
-        >
-        <el-button type="primary" style="margin-left: 90px" @click="regnow"
-          >立即注册</el-button
-        >
+        <el-button type="primary" @click="lognow">立即登录</el-button>
+        <el-button type="primary" @click="regnow">立即注册</el-button>
+      </div>
+      <div class="login__last_Git" @click="GithubObj">
+        <img src="../../picture/GitHub.png" alt="" class="login__last_github">
+        <div class="login__last_content">
+          Github登录
+        </div>
       </div>
     </el-card>
   </div>
@@ -153,6 +155,7 @@ export default {
           } else if (res.code === 200) {
             this.$message.success("登录成功");
             this.$store.state.user = this.ruleForm1.name;
+            this.$store.state.topData = ''
             localStorage.setItem("user", JSON.stringify(res.data));
             // let date = new Date();
             // let timer = this.$moment(date).format(
@@ -186,6 +189,19 @@ export default {
     //找回密码
     findPassword() {
       this.$router.push({ name: "findPassword" });
+    },
+    //github一键登录
+    GithubObj(){
+      // this.$axios.req("api/users/githubUser").then(res => {
+      //   console.log(res);
+      // }).catch(err => {
+      //   console.log(err);
+      // })
+      this.$axios.req("api/users/githubLogin").then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      })
     }
   },
   mounted() {
@@ -213,7 +229,7 @@ export default {
 }
 .box-card {
   width: 500px;
-  height: 350px;
+  height: 400px;
   margin: 100px auto;
 }
 .login_welcome {
@@ -222,9 +238,9 @@ export default {
   font-size: 20px;
 }
 .login__last {
-}
-.login__last {
   margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
 }
 .demo-ruleForm2 {
   position: relative;
@@ -241,5 +257,15 @@ export default {
   position: absolute;
   top: -8px;
   right: -172px;
+}
+.login__last_github{
+  width: 35px;
+  height: 35px;
+}
+.login__last_Git{
+  text-align: center;
+}
+.login__last_content{
+  font-size: 18px;
 }
 </style>

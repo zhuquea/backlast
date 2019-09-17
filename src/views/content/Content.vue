@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-container>
-      <el-header><Header></Header></el-header>
+      <el-header style="padding: 0"><Header></Header></el-header>
       <el-container>
         <el-aside :width="widthStr"><Aside></Aside></el-aside>
-        <el-main>
+        <el-main style="padding: 0">
           <router-view />
         </el-main>
       </el-container>
@@ -46,13 +46,17 @@ export default {
       } else if (to.path === "/mailList"){
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/offerManagement") {
-        this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
+        // this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
+        this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/personalInformation"){
-        this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
+        // this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
+        this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/salaryManagement"){
-        this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
+        // this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
+        this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/form") {
-        this.$store.state.topData = `表单页 > ${to.matched[0].meta.title}`
+        // this.$store.state.topData = `表单页 > ${to.matched[0].meta.title}`
+        this.$store.state.topData = to.matched[0].meta.title
       }
     }
   },

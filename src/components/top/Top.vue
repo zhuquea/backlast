@@ -5,7 +5,18 @@
         class="el-icon-folder-opened"
         style="color: #00B7FF;font-size: 30px"
       ></i>
-      <span class="home_first_span">{{ topData }}</span>
+<!--      <span class="home_first_span">{{ topData }}</span>-->
+      <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-left: 5px">
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === '日程管理'">{{topData}}</el-breadcrumb-item>
+        <el-breadcrumb-item v-else-if="topData === '通讯录'">{{topData}}</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === 'offer管理'||topData === '人员信息'||topData === '薪酬管理'">组织员工</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === 'offer管理'">{{topData}}</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === '人员信息'">{{topData}}</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === '薪酬管理'">{{topData}}</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === '分布表单'">表单页</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="topData === '分布表单'">{{topData}}</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
   </div>
 </template>
@@ -21,11 +32,6 @@ export default {
   methods: {
     stretchingAside() {
       this.$store.state.isCollapse = !this.$store.state.isCollapse;
-      // if (this.$store.state.isCollapse === true) {
-      //   this.$store.state.widthStr = "50px";
-      // } else {
-      //   this.$store.state.widthStr = "220px";
-      // }
     }
   },
   mounted() {},

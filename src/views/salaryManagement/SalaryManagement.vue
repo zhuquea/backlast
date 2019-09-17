@@ -43,6 +43,7 @@
                 v-model="scope.row.structure"
                 v-show="scope.row.isInput3 === true"
                 @blur="blurObj3(scope)"
+                @keydown.enter.native="enterObj3(scope)"
               >
               </el-input>
               <div
@@ -59,12 +60,11 @@
                 v-model="scope.row.planned"
                 v-show="scope.row.isInput === true"
                 @blur="blurObj(scope)"
-              >
+                @keydown.enter.native="enterObj(scope)">
               </el-input>
               <div
                 v-show="scope.row.isInput === false"
-                @click="showInput(scope)"
-              >
+                @click="showInput(scope)">
                 {{ scope.row.planned }}
               </div>
             </template>
@@ -75,6 +75,7 @@
                 v-model="scope.row.actual"
                 v-show="scope.row.isInput2 === true"
                 @blur="blurObj2(scope)"
+                @keydown.enter.native="enterObj2(scope)"
               >
               </el-input>
               <div
@@ -156,7 +157,8 @@ export default {
         ]
       },
       salaryDataArr: [], //接收随机生成的3条数据
-      isCancelBlen: false //控制取消按钮的显示隐藏
+      isCancelBlen: false, //控制取消按钮的显示隐藏
+      isBlur: true //控制失去焦点事件是否发生
     };
   },
   methods: {
@@ -202,26 +204,108 @@ export default {
     showInput(scope) {
       // console.log(scope);
       scope.row.isInput = true;
+      this.isBlur = true;
     },
     showInput2(scope) {
       // console.log(scope);
       scope.row.isInput2 = true;
+      this.isBlur = true;
     },
     showInput3(scope) {
       // console.log(scope);
       scope.row.isInput3 = true;
+      this.isBlur = true;
     },
     blurObj(scope) {
-      scope.row.isInput = false;
-      this.$message.success("操作成功");
+      if (this.isBlur === true) {
+        if (scope.row.planned) {
+          scope.row.isInput = false;
+          this.$message.success("操作成功");
+        }
+        if (
+          scope.row.actual &&
+          scope.row.planned &&
+          scope.row.structure.length > 0
+        ) {
+          this.isCancelBlen = false;
+        }
+      }
+    },
+    enterObj(scope) {
+      if (scope.row.planned) {
+        scope.row.isInput = false;
+        this.$message.success("操作成功");
+        this.isBlur = false;
+      }
+      if (
+        scope.row.actual &&
+        scope.row.planned &&
+        scope.row.structure.length > 0
+      ) {
+        this.isCancelBlen = false;
+      }
     },
     blurObj2(scope) {
-      scope.row.isInput2 = false;
-      this.$message.success("操作成功");
+      if (this.isBlur === true) {
+        // console.log(scope.row.actual);
+        if (scope.row.actual) {
+          scope.row.isInput2 = false;
+          this.$message.success("操作成功");
+        }
+        if (
+          scope.row.actual &&
+          scope.row.planned &&
+          scope.row.structure.length > 0
+        ) {
+          this.isCancelBlen = false;
+        }
+      }
+    },
+    enterObj2(scope) {
+      // console.log(scope);
+      // console.log(scope.row.actual);
+      if (scope.row.actual) {
+        scope.row.isInput2 = false;
+        this.$message.success("操作成功");
+        this.isBlur = false;
+      }
+      if (
+        scope.row.actual &&
+        scope.row.planned &&
+        scope.row.structure.length > 0
+      ) {
+        this.isCancelBlen = false;
+      }
     },
     blurObj3(scope) {
-      scope.row.isInput3 = false;
-      this.$message.success("操作成功");
+      if (this.isBlur === true) {
+        if (scope.row.structure.length > 0) {
+          scope.row.isInput3 = false;
+          this.$message.success("操作成功");
+        }
+        if (
+          scope.row.actual &&
+          scope.row.planned &&
+          scope.row.structure.length > 0
+        ) {
+          this.isCancelBlen = false;
+        }
+      }
+    },
+    enterObj3(scope) {
+      // console.log(scope);
+      if (scope.row.structure.length > 0) {
+        scope.row.isInput3 = false;
+        this.$message.success("操作成功");
+        this.isBlur = false;
+      }
+      if (
+        scope.row.actual &&
+        scope.row.planned &&
+        scope.row.structure.length > 0
+      ) {
+        this.isCancelBlen = false;
+      }
     },
     //添加更多按钮
     addMoreObj() {
@@ -235,8 +319,16 @@ export default {
         isInput2: true,
         isInput3: true
       };
-      this.isCancelBlen = true;
-      this.salaryDataArr.push(Modal);
+      if (
+        this.salaryDataArr[this.salaryDataArr.length - 1].structure &&
+        this.salaryDataArr[this.salaryDataArr.length - 1].planned &&
+        this.salaryDataArr[this.salaryDataArr.length - 1].actual
+      ) {
+        this.isCancelBlen = true;
+        this.salaryDataArr.push(Modal);
+      } else {
+        this.$message.warning("请完成上一次添加");
+      }
     },
     //取消按钮
     cancelObj() {
@@ -250,9 +342,9 @@ export default {
       }
     },
     //用户选择月份的事件
-    changeObj(){
+    changeObj() {
       console.log(this.valueMonth);
-      this.valueMonthDv = this.$moment(this.valueMonth).format("YYYY年MM月")
+      this.valueMonthDv = this.$moment(this.valueMonth).format("YYYY年MM月");
     }
   },
   mounted() {

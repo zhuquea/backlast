@@ -155,9 +155,16 @@ const router = new Router({
   ]
 });
 router.beforeEach((to, from, next) => {
-  next();
-  if (to.meta.title) {
-    document.title = to.meta.title;
+  let user = localStorage.getItem("user");
+  if (user) {
+    next();
+  } else if (to.path === "/login" || to.path === "/register" || to.path === "/findPassword") {
+    next();
+  } else {
+    next("/login");
+  }
+  if (to.matched[0].meta.title) {
+    document.title = to.matched[0].meta.title;
   }
 });
 export default router;

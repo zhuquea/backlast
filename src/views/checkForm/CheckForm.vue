@@ -1,21 +1,23 @@
 <template>
   <div class="app">
-    <el-card class="box-card">
-      <div class="checkForm_1">
-        账单详情
-      </div>
-      <hr class="checkForm_2" />
-      <div class="checkForm_3">
-        <div class="checkForm_3_item">付款账户：{{ name1 }}</div>
-        <div class="checkForm_3_item">收款账户：{{ name2 }}</div>
-        <div class="checkForm_3_item">付款人姓名：{{ name3 }}</div>
-        <div class="checkForm_3_item">付款金额：{{ name4 }}元</div>
-      </div>
-      <div class="checkForm_4">
-        <el-button @click="returnHome" type="primary">返回首页</el-button>
-        <el-button @click="printObj" type="success">打印</el-button>
-      </div>
-    </el-card>
+    <section ref="print">
+      <el-card class="box-card">
+        <div class="checkForm_1">
+          账单详情
+        </div>
+        <hr class="checkForm_2" />
+        <div class="checkForm_3">
+          <div class="checkForm_3_item">付款账户：{{ name1 }}</div>
+          <div class="checkForm_3_item">收款账户：{{ name2 }}</div>
+          <div class="checkForm_3_item">付款人姓名：{{ name3 }}</div>
+          <div class="checkForm_3_item">付款金额：{{ name4 }}元</div>
+        </div>
+        <div class="no-print">
+          <el-button @click="returnHome" type="primary">返回首页</el-button>
+          <el-button @click="printObj" type="success" class="print_class">打印</el-button>
+        </div>
+      </el-card>
+    </section>
   </div>
 </template>
 
@@ -34,7 +36,9 @@ export default {
   },
   methods: {
     //打印
-    printObj() {},
+    printObj() {
+      this.$print(this.$refs.print)
+    },
     //返回首页
     returnHome() {
       this.$router.push({ path: "/" });
@@ -85,9 +89,10 @@ export default {
 .checkForm_3_item {
   font-size: 15px;
 }
-.checkForm_4 {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
+.no-print {
+}
+.print_class{
+  margin-left: 190px;
+  margin-top: 20px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <el-menu
-      default-active="4-4-1"
+      default-active="0"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"

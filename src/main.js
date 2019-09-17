@@ -12,7 +12,9 @@ import VCharts from "v-charts";
 import clipboard from "clipboard";
 // import QRCode from "qrcode"
 import VueI18n from "vue-i18n";
+import Print from "./plugs/print"
 
+Vue.use(Print)
 Vue.use(VCharts);
 Vue.use(ElementUI);
 Vue.use(VueI18n);
