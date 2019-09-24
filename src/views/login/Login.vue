@@ -55,12 +55,14 @@
         <el-button type="primary" @click="lognow">立即登录</el-button>
         <el-button type="primary" @click="regnow">立即注册</el-button>
       </div>
-      <div class="login__last_Git" @click="GithubObj">
-        <img src="../../picture/GitHub.png" alt="" class="login__last_github">
-        <div class="login__last_content">
-          Github登录
+      <a href="api/users/githubLogin" @click="gitHub" class="aHref">
+        <div class="login__last_Git">
+          <img src="../../picture/GitHub.png" alt="" class="login__last_github"/>
+          <div class="login__last_content">
+            Github登录
+          </div>
         </div>
-      </div>
+      </a>
     </el-card>
   </div>
 </template>
@@ -155,8 +157,10 @@ export default {
           } else if (res.code === 200) {
             this.$message.success("登录成功");
             this.$store.state.user = this.ruleForm1.name;
-            this.$store.state.topData = ''
+            this.$store.state.topData = "";
             localStorage.setItem("user", JSON.stringify(res.data));
+            let Num = '0'
+            localStorage.setItem('index',Num)
             // let date = new Date();
             // let timer = this.$moment(date).format(
             //   "YYYY年MM月DD日 HH时mm分ss秒"
@@ -190,18 +194,19 @@ export default {
     findPassword() {
       this.$router.push({ name: "findPassword" });
     },
-    //github一键登录
-    GithubObj(){
-      // this.$axios.req("api/users/githubUser").then(res => {
-      //   console.log(res);
-      // }).catch(err => {
-      //   console.log(err);
-      // })
-      this.$axios.req("api/users/githubLogin").then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
+    //github登录
+    gitHub() {
+      this.$axios
+        .req("api/users/githubUser")
+        .then(res => {
+          console.log(res);
+          if (res.code === 200) {
+            localStorage.setItem("user",JSON.stringify(res.data))
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
@@ -258,14 +263,21 @@ export default {
   top: -8px;
   right: -172px;
 }
-.login__last_github{
+.login__last_github {
   width: 35px;
   height: 35px;
 }
-.login__last_Git{
+.login__last_Git {
   text-align: center;
 }
-.login__last_content{
+.login__last_Git:hover {
+  cursor: pointer;
+}
+.login__last_content {
   font-size: 18px;
+}
+.aHref {
+  text-decoration: none;
+  color: black;
 }
 </style>

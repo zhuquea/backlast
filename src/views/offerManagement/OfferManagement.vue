@@ -54,23 +54,19 @@
             :key="index"
             :prop="item.type"
             :label="item.label"
-            width="200px"
+            width="auto"
             align="center"
+            show-overflow-tooltip
           >
           </el-table-column>
-          <el-table-column width="200px" align="center">
-            <template slot="header" slot-scope="scope">
+          <el-table-column width="150px" align="center">
+            <template slot="header">
               <el-popover
                 placement="bottom"
                 width="200"
                 trigger="click"
-                v-model="visible"
-              >
-                <i
-                  class="el-icon-setting"
-                  style="color: #00b7ff;font-size: 18px"
-                  slot="reference"
-                ></i>
+                v-model="visible">
+                <i class="el-icon-setting" style="color: #00b7ff;font-size: 18px" slot="reference"></i>
                 <div class="popover_1">
                   <el-popover placement="left" width="70" trigger="click">
                     <div class="popover_1_1" @click="addField" slot="reference">
@@ -83,8 +79,7 @@
                       :cell-style="{ padding: '0px' }"
                       :show-header="false"
                       tooltip-effect="dark"
-                      @selection-change="handleSelectionChange1"
-                    >
+                      @selection-change="handleSelectionChange1">
                       <el-table-column type="selection" width="28">
                       </el-table-column>
                       <el-table-column prop="label" width="auto">
@@ -95,15 +90,13 @@
                       size="mini"
                       style="margin-left: 100px;margin-top: 10px"
                       @click="addSureObj"
-                      >确定</el-button
-                    >
+                      >确定</el-button>
                   </el-popover>
                   <el-popover placement="right" width="70" trigger="click">
                     <div
                       class="popover_1_1"
                       @click="deleteField"
-                      slot="reference"
-                    >
+                      slot="reference">
                       删除显示字段
                     </div>
                     <el-table
@@ -113,8 +106,7 @@
                       :cell-style="{ padding: '0px' }"
                       :show-header="false"
                       tooltip-effect="dark"
-                      @selection-change="handleSelectionChange2"
-                    >
+                      @selection-change="handleSelectionChange2">
                       <el-table-column type="selection" width="28">
                       </el-table-column>
                       <el-table-column prop="label" width="auto">
@@ -125,8 +117,7 @@
                       size="mini"
                       style="margin-left: 100px;margin-top: 10px"
                       @click="deleteSureObj"
-                      >确定</el-button
-                    >
+                      >确定</el-button>
                   </el-popover>
                 </div>
                 <hr class="popover_hr" />
@@ -374,10 +365,7 @@ export default {
   mounted() {
     this.getOfferManage();
     this.offerManageArr2 = this.offerManageArr1.slice(0, 9);
-    this.offerManageArr3 = this.offerManageArr1.slice(
-      9,
-      this.offerManageArr1.length
-    );
+    this.offerManageArr3 = this.offerManageArr1.slice(9, this.offerManageArr1.length);
     console.log(this.offerManageArr3);
   },
   created() {},

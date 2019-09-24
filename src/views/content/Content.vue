@@ -28,7 +28,11 @@ export default {
     };
   },
   methods: {},
-  mounted() {},
+  mounted() {
+    if (localStorage.getItem('breadcrumb')) {
+      this.$store.state.topData = localStorage.getItem('breadcrumb')
+    }
+  },
   created() {},
   filters: {},
   computed: {
@@ -40,21 +44,28 @@ export default {
     $route(to) {
       console.log(to);
       if (to.path === "/") {
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/scheduleManagement") {
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/mailList"){
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/offerManagement") {
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         // this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/personalInformation"){
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         // this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/salaryManagement"){
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         // this.$store.state.topData = `组织员工 > ${to.matched[0].meta.title}`
         this.$store.state.topData = to.matched[0].meta.title
       } else if (to.path === "/form") {
+        localStorage.setItem('breadcrumb',to.matched[0].meta.title)
         // this.$store.state.topData = `表单页 > ${to.matched[0].meta.title}`
         this.$store.state.topData = to.matched[0].meta.title
       }

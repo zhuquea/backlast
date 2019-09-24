@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <el-menu
-      default-active="0"
+      :default-active="activeMenu"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -11,7 +11,7 @@
         v-for="(item, index) in arr1"
         :key="index"
         :index="index.toString()"
-        @click="jumpObj(item)"
+        @click="jumpObj(item,index)"
         class="menu_item_RE"
       >
         <i :class="item.class"></i>
@@ -50,7 +50,7 @@
           </span>
         </el-dialog>
       </el-menu-item>
-      <el-submenu index="4" class="menu_item_RE">
+      <el-submenu index="3" class="menu_item_RE">
         <template slot="title">
           <i class="el-icon-user"></i>
           <img
@@ -65,13 +65,13 @@
           <span class="span_new" v-show="arr2[3] === 3">new</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="4-1" @click="jumpOffer">{{
+          <el-menu-item index="3-1" @click="jumpOffer">{{
             staffStr1[0].name
           }}</el-menu-item>
-          <el-menu-item index="4-2" @click="jumpPersonal">{{
+          <el-menu-item index="3-2" @click="jumpPersonal">{{
             staffStr2[0].name
           }}</el-menu-item>
-          <el-menu-item index="4-3" @click="jumpSalary">{{
+          <el-menu-item index="3-3" @click="jumpSalary">{{
             staffStr3[0].name
           }}</el-menu-item>
           <el-dialog
@@ -90,7 +90,7 @@
           </el-dialog>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="5" class="menu_item_RE">
+      <el-submenu index="4" class="menu_item_RE">
         <template slot="title">
           <i class="el-icon-tickets"></i>
           <img
@@ -104,7 +104,7 @@
           <span class="span_new" v-show="arr2[4] === 4">new</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="5-1" @click="jumpForm">{{
+          <el-menu-item index="4-1" @click="jumpForm">{{
             formStr1[0].name
           }}</el-menu-item>
           <el-dialog
@@ -134,6 +134,7 @@ export default {
   props: {},
   data() {
     return {
+      activeMenu: '0',
       arr1: [
         {
           class: "el-icon-s-home",
@@ -186,8 +187,11 @@ export default {
       console.log(key, keyPath);
     },
     //跳转页面
-    jumpObj(item) {
+    jumpObj(item,index) {
       this.$router.push({ path: item.path });
+      let Num = index.toString()
+      localStorage.setItem('index',Num)
+      console.log(localStorage.getItem('index'));
     },
     //跳转offer管理
     jumpOffer() {
@@ -195,14 +199,20 @@ export default {
       if (this.arr2[3] === 3) {
         this.centerDialogVisible3 = true;
       }
+      let Num = '3-1'
+      localStorage.setItem('index',Num)
     },
     //跳转人员信息
     jumpPersonal() {
       this.$router.push({ path: "/personalInformation" });
+      let Num = '3-2'
+      localStorage.setItem('index',Num)
     },
     //跳转薪酬管理
     jumpSalary() {
       this.$router.push({ path: "/salaryManagement" });
+      let Num = '3-3'
+      localStorage.setItem('index',Num)
     },
     //跳转分步表单
     jumpForm() {
@@ -210,6 +220,8 @@ export default {
       if (this.arr2[4] === 4) {
         this.centerDialogVisible4 = true;
       }
+      let Num = '4-1'
+      localStorage.setItem('index',Num)
     },
     //显示弹框
     showDialog(item) {
@@ -217,6 +229,11 @@ export default {
     }
   },
   mounted() {
+    if (localStorage.getItem('index')) {
+      this.activeMenu = localStorage.getItem('index')
+      console.log(localStorage.getItem('index'));
+      console.log(this.activeMenu);
+    }
     this.$axios
       .req("api/getNew")
       .then(res => {

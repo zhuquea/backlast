@@ -18,14 +18,11 @@
           action="api/upload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload"
-        >
-          <img
-            v-if="imageUrl === null"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl === null"
             src="../picture/tou1.jpg"
             alt=""
-            class="first_right_img"
-          />
+            class="first_right_img"/>
           <img v-else :src="imageUrl" alt="" class="first_right_img" />
         </el-upload>
         <span v-if="timeNow >= 6 && timeNow<12">{{sayTimeHello1[0].name}}</span>
@@ -44,8 +41,7 @@
               action="api/upload"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
+              :before-upload="beforeAvatarUpload">
               <el-dropdown-item command="a">上传头像</el-dropdown-item>
             </el-upload>
             <el-dropdown-item command="b">修改密码</el-dropdown-item>
@@ -169,6 +165,8 @@ export default {
             if (res.code === 200) {
               this.$message.success("退出登录成功");
               localStorage.removeItem("user");
+              localStorage.removeItem("index")
+              localStorage.removeItem("breadcrumb")
               this.$router.push({ path: "/login" });
             }
           })
@@ -191,6 +189,8 @@ export default {
         this.form.originalPass === this.userPassword &&
         this.form.newPass === this.form.surePass
       ) {
+        this.userPassword = this.form.newPass
+        console.log(this.userPassword);
         this.$axios
           .req("api/users/updateUser", {
             id: this.idData,
@@ -253,16 +253,19 @@ export default {
     }
   },
   mounted() {
-    if (localStorage.getItem("user")) {
-      console.log(JSON.parse(localStorage.getItem("user")));
+    console.log(JSON.parse(localStorage.getItem("user")));
+    if (JSON.parse(localStorage.getItem("user")).user) {
       this.username = JSON.parse(localStorage.getItem("user")).user[0].username;
       this.userPassword = JSON.parse(
-        localStorage.getItem("user")
+              localStorage.getItem("user")
       ).user[0].password;
-      this.imageUrl = JSON.parse(localStorage.getItem("user")).user[0].imageUrl;
+      this.imageUrl = JSON.parse(localStorage.getItem("user")).user[0].imageUrl
       console.log(this.imageUrl);
       console.log(this.userPassword);
       this.idData = JSON.parse(localStorage.getItem("user")).user[0]._id;
+    }else if (!JSON.parse(localStorage.getItem("user")).user) {
+      this.username = JSON.parse(localStorage.getItem("user")).login
+      this.imageUrl = JSON.parse(localStorage.getItem("user")).avatar_url
     }
     this.timeNow = this.$moment(new Date()).hour()
     // if (localStorage.getItem("imgUrl")) {

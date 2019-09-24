@@ -57,16 +57,12 @@
           <el-table-column prop="planned" label="计划支出（元）" align="center">
             <template slot-scope="scope">
               <el-input
-                v-model="scope.row.planned"
-                v-show="scope.row.isInput === true"
-                @blur="blurObj(scope)"
-                @keydown.enter.native="enterObj(scope)">
-              </el-input>
-              <div
-                v-show="scope.row.isInput === false"
-                @click="showInput(scope)">
-                {{ scope.row.planned }}
-              </div>
+                    v-model="scope.row.planned"
+                    v-show="scope.row.isInput === true"
+                    @blur="blurObj(scope)"
+                    @keydown.enter.native="enterObj(scope)">
+            </el-input>
+              <div v-show="scope.row.isInput === false" @click="showInput(scope)">{{ scope.row.planned }}</div>
             </template>
           </el-table-column>
           <el-table-column prop="actual" label="实际支出（元）" align="center">
@@ -85,6 +81,8 @@
                 {{ scope.row.actual }}
               </div>
             </template>
+          </el-table-column>
+          <el-table-column prop="" label="" align="center" width="350px">
           </el-table-column>
           <el-table-column
             prop="lastPlanned"
@@ -196,7 +194,7 @@ export default {
           }, 0);
           sums[index] += " 元";
         } else {
-          sums[index] = "N/A";
+          sums[index] = "";
         }
       });
       return sums;

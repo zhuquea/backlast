@@ -142,6 +142,7 @@ export default {
   display: flex;
   padding: 10px;
   position: relative;
+  align-items: flex-start;
 }
 .mail_list_all_left {
   width: 15%;

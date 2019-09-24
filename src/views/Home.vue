@@ -403,7 +403,12 @@ export default {
   mounted() {
     let date = new Date();
     this.value1 = this.$moment(date).format("YYYY-MM-DD");
-    this.userName = JSON.parse(localStorage.getItem("user")).user[0].username;
+      console.log(JSON.parse(localStorage.getItem("user")));
+    if (JSON.parse(localStorage.getItem("user")).user) {
+        this.userName = JSON.parse(localStorage.getItem("user")).user[0].username
+    }else if (!JSON.parse(localStorage.getItem("user")).user) {
+        this.userName = JSON.parse(localStorage.getItem("user")).login
+    }
     console.log(this.userName);
     this.$axios
       .req("api/getHome1")
@@ -475,7 +480,7 @@ export default {
 
 <style scoped lang="scss">
 .app {
-  width: 98%;
+  width: 96%;
   background-color: #fbf7f9;
   padding: 20px;
 }

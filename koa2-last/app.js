@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 
 const index = require("./routes/index");
 const users = require("./routes/users");
-const category = require("./routes/cateGory");
+const calendar = require("./routes/calendar");
 const dynamic = require("./routes/dynamic");
 const session = require("koa-session");
 
@@ -55,7 +55,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
-app.use(category.routes(), category.allowedMethods());
+app.use(calendar.routes(), calendar.allowedMethods());
 app.use(dynamic.routes(), dynamic.allowedMethods());
 
 // error-handling
